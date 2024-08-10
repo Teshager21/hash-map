@@ -106,6 +106,14 @@ clear(){
     console.log('after clear',this.#bucket);
 }
 
+keys(){
+    const keys=[];
+    this.#bucket.flat().map((entry)=>{
+    if(entry!==null) keys.push(Object.keys(entry));
+    });
+    return keys;
+}
+
 }
 
 export default HashMap;
