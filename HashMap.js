@@ -27,7 +27,7 @@ set(key,value){
         this.#bucket[index]={[key]:value};
         this.size++;
     }
-    else if(Array.isArray(entry)){
+    else if(Array.isArray(entry)){ // if bucket slot is array
         let found=true;
         for(let pair of entry){
             found= true;
@@ -43,7 +43,8 @@ set(key,value){
         }
     }else{
         if(Object.keys(entry).includes(key)) entry={key,value};
-        else this.#bucket[index]=[entry,{[key]:value}]
+        else {this.#bucket[index]=[entry,{[key]:value}];
+            this.size++}
     }
    
     // console.log(`hash for ${key} is ${index}`);
@@ -51,26 +52,25 @@ set(key,value){
 }
 
 get(key){
-    const index= this.#hash(key);
-    const bucket=this.#bucket[index];
-    if(!bucket){
+   
+    if(!this.has(key)){
         console.error(`No entry with key '${key}' found`);
        return null;
     }
+    const index= this.#hash(key);
+    const bucket=this.#bucket[index];
     if(!Array.isArray(bucket)){
         return bucket[key];
     }else{
     for(let entry of bucket){
-        if(Object.keys(entry).includes(key)) {
-            return entry[key];
-        }
-    }
-        
+        if(Object.keys(entry).includes(key)) return entry[key];
+    }  
     }
 }
 
 has(key){
-for(let entry of this.#bucket.flat()){
+const bucket=this.#bucket.flat();
+for(let entry of bucket){
     if(entry!==null && Object.keys(entry).includes(key)) {
         return true;
     }
@@ -78,15 +78,26 @@ for(let entry of this.#bucket.flat()){
 return false;
 }
 
+remove(key){
+if(!this.has(key)) return false;
+const index= this.#hash(key);
+const bucket=this.#bucket[index];
+if(!Array.isArray(bucket)){
+    this.#bucket[index]=null;
+    this.size--;
+    return true;  
+}else{
+   for(let entry of bucket){
+        if(Object.keys(entry).includes(key)) {
+            this.#bucket[index].splice(bucket.indexOf(entry),1);
+            this.size--;
+            return true;
+        }
+    }  
 }
 
-const hash= new HashMap;
-hash.set('Mosh',25);
-hash.set('Bill',24);
-hash.set('Fani',56);
-hash.set('Sara',55);
-console.log('======================================');
-hash.set('Mosh',100);
-// console.log(hash);
-// console.log(hash.size)
-console.log('getting',hash.has('bill'));
+}
+
+}
+
+export default HashMap;
