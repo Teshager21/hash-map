@@ -114,6 +114,14 @@ keys(){
     return keys;
 }
 
+values(){
+    const values=[];
+    this.#bucket.flat().map((entry)=>{
+    if(entry!==null) values.push(Object.values(entry));
+    });
+    return values;  
+}
+
 }
 
 export default HashMap;

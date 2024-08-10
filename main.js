@@ -10,5 +10,6 @@ hash.set('Mosh',100);
 console.log(hash.length())
 // console.log('getting',hash.clear());
 // console.log('getting',hash.remove('Mosh'));
-console.log(hash.keys())
+console.log(hash.keys());
+console.log(hash.values())
 console.log(hash)
