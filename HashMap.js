@@ -55,7 +55,7 @@ get(key){
     const bucket=this.#bucket[index];
     if(!bucket){
         console.error(`No entry with key '${key}' found`);
-       return;
+       return null;
     }
     if(!Array.isArray(bucket)){
         return bucket[key];
@@ -69,6 +69,15 @@ get(key){
     }
 }
 
+has(key){
+for(let entry of this.#bucket.flat()){
+    if(entry!==null && Object.keys(entry).includes(key)) {
+        return true;
+    }
+}
+return false;
+}
+
 }
 
 const hash= new HashMap;
@@ -77,7 +86,7 @@ hash.set('Bill',24);
 hash.set('Fani',56);
 hash.set('Sara',55);
 console.log('======================================');
-hash.set('Mosh',100)
+hash.set('Mosh',100);
 // console.log(hash);
-console.log(hash.size)
-console.log('getting',hash.get('Fani'));
+// console.log(hash.size)
+console.log('getting',hash.has('bill'));
