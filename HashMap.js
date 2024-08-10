@@ -30,6 +30,7 @@ reallocateBucket(){
     this.#bucket=Array(this.#bucket_size).fill(null);
     entries.forEach(entry => {
         this.set(entry[0],entry[1]);
+        this.size--;
         
     });
     console.log('new bucket',this.#bucket)
@@ -62,7 +63,7 @@ set(key,value){
             this.size++;
         }
     }else{
-        if(Object.keys(entry).includes(key)) entry={key,value};
+        if(Object.keys(entry).includes(key)) this.#bucket[index]={[key]:value};
         else {this.#bucket[index]=[entry,{[key]:value}];
             this.size++}
     }

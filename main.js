@@ -20,4 +20,13 @@ test.set('lion', 'golden')
 console.log(test.entries())
 console.log(test)
 
-test.set('moon', 'silver')
+test.set('moon', 'silver');
+
+console.log('set', test.set('lion','orange'));
+console.log(test.entries())
+console.log(test.has('lion'))
+console.log(test.length());
+console.log(test.remove('jacket'));
+console.log(test.entries());
+console.log(test.keys());
+console.log(test.values());
