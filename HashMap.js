@@ -3,8 +3,9 @@ class HashMap{
 
     }
 
-#bucket=[];
 #bucket_size=16;
+#bucket=Array(this.#bucket_size).fill(null);
+
 
 #hash(key){ 
     let hashCode = 0;
@@ -18,8 +19,19 @@ class HashMap{
 }
 
 set(key,value){
-    this.#bucket[this.#hash(key)]={key,value};
-    console.log(`hash for ${key} is ${this.#hash(key)}`);
+    const index=this.#hash(key);
+    let entry= this.#bucket[index];
+    if(!entry){
+        this.#bucket[index]={key,value};
+    }
+    else if(Array.isArray(entry)){
+        this.#bucket.push({key,value});
+    }else{
+        if(Object.keys(entry).includes(key)) entry={key,value};
+        else this.#bucket[index]=[entry,{key,value}]
+    }
+   
+    console.log(`hash for ${key} is ${index}`);
     console.log(this.#bucket)
 }
 
@@ -29,4 +41,5 @@ const hash= new HashMap;
 hash.set('Mosh',25);
 hash.set('Bill',24);
 hash.set('Fani',56);
+hash.set('Sara',55);
 console.log(hash);
