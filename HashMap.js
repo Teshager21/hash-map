@@ -100,6 +100,12 @@ length(){
     return this.size;
 }
 
+clear(){
+    console.log('before clear',this.#bucket);
+    this.#bucket.fill(null);
+    console.log('after clear',this.#bucket);
+}
+
 }
 
 export default HashMap;
