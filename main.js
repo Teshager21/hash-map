@@ -7,7 +7,7 @@ hash.set('Sara',55);
 console.log('======================================');
 hash.set('Mosh',100);
  console.log(hash);
-// console.log(hash.size)
+console.log(hash.length())
 console.log('getting',hash.remove('Bill'));
 console.log('getting',hash.remove('Mosh'));
 console.log(hash)

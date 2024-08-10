@@ -46,9 +46,7 @@ set(key,value){
         else {this.#bucket[index]=[entry,{[key]:value}];
             this.size++}
     }
-   
-    // console.log(`hash for ${key} is ${index}`);
-    // console.log(this.#bucket)
+
 }
 
 get(key){
@@ -96,6 +94,10 @@ if(!Array.isArray(bucket)){
     }  
 }
 
+}
+
+length(){
+    return this.size;
 }
 
 }
