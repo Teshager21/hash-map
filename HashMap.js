@@ -1,3 +1,5 @@
+import { copyWithStructuralSharing } from "@reduxjs/toolkit/query";
+
 class HashMap{
     constuctor(){
     this.size=0
@@ -7,6 +9,7 @@ class HashMap{
 #bucket_size=16;
 #bucket=Array(this.#bucket_size).fill(null);
 size=0;
+#load_factor=0.75;
 
 
 #hash(key){ 
@@ -20,7 +23,23 @@ size=0;
    return hashCode%this.#bucket_size;
 }
 
+reallocateBucket(){
+    console.log('reallocating bucket...')
+    const entries= this.entries();
+    this.#bucket_size=2*this.#bucket_size;
+    this.#bucket=Array(this.#bucket_size).fill(null);
+    entries.forEach(entry => {
+        this.set(entry[0],entry[1]);
+        
+    });
+    console.log('new bucket',this.#bucket)
+}
+
 set(key,value){
+    if(this.size >= 0.75*this.#bucket_size){
+       console.log("BUCKET SIZE EXCEEDED!");
+       this.reallocateBucket();
+    }
     const index=this.#hash(key);
     let entry= this.#bucket[index];
     if(!entry){
@@ -33,6 +52,7 @@ set(key,value){
             found= true;
             if(Object.keys(pair).includes(key)) {
                 this.#bucket[index][entry.indexOf(pair)]={[key]:value};
+                console.log(this.#bucket)
                 break;
              }
           found=false;
@@ -101,9 +121,7 @@ length(){
 }
 
 clear(){
-    console.log('before clear',this.#bucket);
     this.#bucket.fill(null);
-    console.log('after clear',this.#bucket);
 }
 
 keys(){
@@ -111,7 +129,7 @@ keys(){
     this.#bucket.flat().map((entry)=>{
     if(entry!==null) keys.push(Object.keys(entry));
     });
-    return keys;
+    return keys.flat();
 }
 
 values(){
@@ -119,7 +137,16 @@ values(){
     this.#bucket.flat().map((entry)=>{
     if(entry!==null) values.push(Object.values(entry));
     });
-    return values;  
+    return values.flat();  
+}
+
+entries(){
+    const entries=[];
+    this.#bucket.flat().map((entry)=>{
+    if(entry!==null) entries.push([Object.keys(entry),Object.values(entry)].flat());
+    });
+    return entries;
+
 }
 
 }
