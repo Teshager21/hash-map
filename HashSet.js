@@ -48,6 +48,11 @@ class HashSet{
                 this.size++}
         }
     }
+
+    has(key){
+        const bucket=this.#bucket.flat();
+        return (bucket.includes(key))? true:false;
+        }
 }
 
 export default HashSet;

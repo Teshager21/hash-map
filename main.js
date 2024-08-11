@@ -29,4 +29,6 @@ import HashSet from "./HashSet.js";
 
 const set= new HashSet();
 set.set("John")
-console.log(set)
+console.log(set);
+console.log(set.has("John"));
+console.log(set.has("Josh"))
