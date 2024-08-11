@@ -73,6 +73,14 @@ clear(){
     this.size=0;
 }
 
+keys(){
+    const keys=[];
+    this.#bucket.flat().map((entry)=>{
+    if(entry!==null) keys.push(entry);
+    });
+    return keys.flat();
+}
+
 }
 
 export default HashSet;
