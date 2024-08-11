@@ -19,6 +19,10 @@ class HashSet{
        return hashCode%this.#bucket_size;
     }
     set(key){
+        if(this.has(key)) {
+            console.error(`The key ${key} already exists in the set`);
+            return;  
+        }
         if(this.size >= 0.75*this.#bucket_size){
            console.log("BUCKET SIZE EXCEEDED!");
            this.reallocateBucket();
@@ -31,28 +35,37 @@ class HashSet{
             console.log(this.#bucket)
         }
         else if(Array.isArray(entry)){ // if bucket slot is array
-                if(entry.includes(key)) { //the key already exists in the array
-                    console.error(`The key ${key} already exists in the set`);
-                    return;
-                 }
-                else {
                     this.#bucket[index].push(key);
                     this.size++;
-                }
         }else{   //if the bucket slot contains just a number/string
-            if(entry===key) { //if the same key is already there
-                console.error(`The key ${key} already exists in the set`);
-                return;  
-            }
-            else {this.#bucket[index]=[entry,key];
-                this.size++}
+                this.#bucket[index]=[entry,key];
+                this.size++
         }
     }
 
-    has(key){
-        const bucket=this.#bucket.flat();
-        return (bucket.includes(key))? true:false;
-        }
+has(key){
+    const bucket=this.#bucket.flat();
+    return (bucket.includes(key))? true:false;
+    }
+remove(key){
+    if(!this.has(key)) return false;
+    const index= this.#hash(key);
+    const bucket=this.#bucket[index];
+    if(!Array.isArray(bucket)){ 
+        this.#bucket[index]=null;
+        this.size--;
+        console.log(this.#bucket)
+        return true;  
+    }
+    if(Array.isArray(bucket) && bucket.includes(key)) { // if the bucket slot contains an array of keys
+        this.#bucket[index].splice(bucket.indexOf(key),1);
+        this.size--;
+        return true;
+    }
+
+    }
+    
+
 }
 
 export default HashSet;

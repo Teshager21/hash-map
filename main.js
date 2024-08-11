@@ -28,7 +28,13 @@ import HashSet from "./HashSet.js";
 // console.log(test.values());
 
 const set= new HashSet();
-set.set("John")
-console.log(set);
+set.set("John");
+set.set("Josh");
+set.set('Mosh');
+set.set("Bill")
+
 console.log(set.has("John"));
-console.log(set.has("Josh"))
+console.log(set.has("Josh"));
+// console.log(set);
+// console.log(set.remove("John"))
+console.log(set);
