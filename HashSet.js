@@ -64,6 +64,9 @@ remove(key){
     }
 
     }
+length(){
+    return this.size;
+}
     
 
 }
