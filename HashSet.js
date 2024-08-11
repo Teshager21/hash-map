@@ -18,21 +18,30 @@ class HashSet{
     
        return hashCode%this.#bucket_size;
     }
-    set(key){
+    #reallocateBucket(){
+        console.log('reallocating bucket...')
+        const keys= this.keys();
+        this.#bucket_size=2*this.#bucket_size;
+        this.#bucket=Array(this.#bucket_size).fill(null);
+        keys.forEach(entry => {
+            this.add(entry);
+            this.size--;
+            
+        });
+    }
+    add(key){
         if(this.has(key)) {
             console.error(`The key ${key} already exists in the set`);
             return;  
         }
         if(this.size >= 0.75*this.#bucket_size){
-           console.log("BUCKET SIZE EXCEEDED!");
-           this.reallocateBucket();
+           this.#reallocateBucket();
         }
         const index=this.#hash(key);
         let entry= this.#bucket[index];
         if(!entry){  //if there no items on the bucket slot
             this.#bucket[index]=key;
             this.size++;
-            console.log(this.#bucket)
         }
         else if(Array.isArray(entry)){ // if bucket slot is array
                     this.#bucket[index].push(key);
@@ -54,7 +63,6 @@ remove(key){
     if(!Array.isArray(bucket)){ 
         this.#bucket[index]=null;
         this.size--;
-        console.log(this.#bucket)
         return true;  
     }
     if(Array.isArray(bucket) && bucket.includes(key)) { // if the bucket slot contains an array of keys

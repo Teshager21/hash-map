@@ -21,7 +21,7 @@ size=0;
    return hashCode%this.#bucket_size;
 }
 
-reallocateBucket(){
+#reallocateBucket(){
     console.log('reallocating bucket...')
     const entries= this.entries();
     this.#bucket_size=2*this.#bucket_size;
@@ -37,7 +37,7 @@ reallocateBucket(){
 set(key,value){
     if(this.size >= 0.75*this.#bucket_size){
        console.log("BUCKET SIZE EXCEEDED!");
-       this.reallocateBucket();
+       this.#reallocateBucket();
     }
     const index=this.#hash(key);
     let entry= this.#bucket[index];

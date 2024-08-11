@@ -28,10 +28,19 @@ import HashSet from "./HashSet.js";
 // console.log(test.values());
 
 const set= new HashSet();
-set.set("John");
-set.set("Josh");
-set.set('Mosh');
-set.set("Bill")
+set.add("Josh");
+set.add('Mosh');
+set.add("Bill");
+set.add("Ball");
+set.add("Boll");
+set.add("Bell");
+set.add("B00ll");
+set.add("Baall");
+set.add("Bull");
+set.add("Boull");
+set.add("Biill");
+set.add("Beell");
+set.add("Carlos")
 
 console.log(set.has("John"));
 console.log(set.has("Josh"));
