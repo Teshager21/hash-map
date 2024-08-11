@@ -121,6 +121,7 @@ length(){
 
 clear(){
     this.#bucket.fill(null);
+    this.size=0;
 }
 
 keys(){

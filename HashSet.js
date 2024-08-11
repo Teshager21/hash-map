@@ -67,7 +67,11 @@ remove(key){
 length(){
     return this.size;
 }
-    
+
+clear(){
+    this.#bucket.fill(null);
+    this.size=0;
+}
 
 }
 

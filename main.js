@@ -37,4 +37,5 @@ console.log(set.has("John"));
 console.log(set.has("Josh"));
 // console.log(set);
 // console.log(set.remove("John"))
+console.log(set.clear())
 console.log(set.length());
